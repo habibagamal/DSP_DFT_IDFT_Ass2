@@ -116,6 +116,9 @@ def hanningWindow (w, len):
 		w[i] = 0.5 - 0.5 * np.cos(2 * np.pi * i / len)
 	return w
 
+#################
+#multiplying the signal by the window
+################
 w = np.zeros(shape = 100)
 w = hanningWindow(w, 20)
 xw = np.zeros (shape = 20)
@@ -123,6 +126,10 @@ xw = np.zeros (shape = 20)
 for i in range (20):
 	xw[i]=x1[i] * w[i]
 
+
+#################
+#doing dft to the signal multiplied by the window 
+################
 xw = np.pad(xw, (0,180), 'constant', constant_values=(0))
 dft_outw = dft (xw, 200)
 plt.figure(6)
@@ -133,6 +140,10 @@ plt.ylabel('Amplitude')
 plt.grid(True)
 plt.show()
 
+
+#################
+#correcting for the amplitude gain caused by the window by multiplying by 2
+################
 dft_outw = dft (xw, 200)
 plt.figure(7)
 plt.stem(dom2 , 2 * abs(dft_outw), 'm')
